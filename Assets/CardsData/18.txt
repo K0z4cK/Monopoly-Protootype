@@ -1,0 +1,1 @@
+{"id":18,"titleDeed":"New York Avenue","price":200,"rent":16,"with1House":80,"with2House":220,"with3House":600,"with4House":800,"withHotel":1000,"morgageValue":100,"housesCost":100,"color":"#f59b53"}

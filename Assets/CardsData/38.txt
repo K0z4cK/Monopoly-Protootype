@@ -1,0 +1,1 @@
+{"id":38,"titleDeed":"Boardwalk","price":400,"rent":50,"with1House":200,"with2House":600,"with3House":1400,"with4House":1700,"withHotel":2000,"morgageValue":200,"housesCost":200,"color":"#40a7db"}

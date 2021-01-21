@@ -1,0 +1,1 @@
+{"id":28,"titleDeed":"Marvin Gardens","price":280,"rent":24,"with1House":120,"with2House":360,"with3House":850,"with4House":1025,"withHotel":1200,"morgageValue":140,"housesCost":150,"color":"#f7ff59"}

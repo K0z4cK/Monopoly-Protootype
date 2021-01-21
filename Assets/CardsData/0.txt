@@ -1,0 +1,1 @@
+{"id":0,"titleDeed":"Mediterranean Avenue","price":60,"rent":2,"with1House":10,"with2House":30,"with3House":90,"with4House":160,"withHotel":250,"morgageValue":30,"housesCost":50,"color":"#a87e63"}

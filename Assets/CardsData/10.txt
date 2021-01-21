@@ -1,0 +1,1 @@
+{"id":10,"titleDeed":"St. Charles Place","price":140,"rent":10,"with1House":50,"with2House":150,"with3House":450,"with4House":625,"withHotel":750,"morgageValue":70,"housesCost":100,"color":"#d45395"}

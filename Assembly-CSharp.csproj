@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4E866DBD-2E67-AD0C-8052-F2D77F349FAB}</ProjectGuid>
+    <ProjectGuid>{06ED276F-71D3-CB1E-D466-2C3720C4395C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,10 +56,35 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\BoardPath.cs" />
+     <Compile Include="Assets\Scripts\CardObject.cs" />
+     <Compile Include="Assets\Scripts\CardScript.cs" />
      <Compile Include="Assets\Scripts\DiceBehaviour.cs" />
      <Compile Include="Assets\Scripts\DiceSide.cs" />
+     <Compile Include="Assets\Scripts\MarketScript.cs" />
      <Compile Include="Assets\Scripts\PlayerMoving.cs" />
      <Compile Include="Assets\Scripts\Route.cs" />
+     <None Include="Assets\CardsData\36.txt" />
+     <None Include="Assets\CardsData\23.txt" />
+     <None Include="Assets\CardsData\0.txt" />
+     <None Include="Assets\CardsData\25.txt" />
+     <None Include="Assets\CardsData\26.txt" />
+     <None Include="Assets\CardsData\30.txt" />
+     <None Include="Assets\CardsData\28.txt" />
+     <None Include="Assets\CardsData\20.txt" />
+     <None Include="Assets\CardsData\38.txt" />
+     <None Include="Assets\CardsData\22.txt" />
+     <None Include="Assets\CardsData\15.txt" />
+     <None Include="Assets\CardsData\10.txt" />
+     <None Include="Assets\CardsData\17.txt" />
+     <None Include="Assets\CardsData\33.txt" />
+     <None Include="Assets\CardsData\13.txt" />
+     <None Include="Assets\CardsData\2.txt" />
+     <None Include="Assets\CardsData\18.txt" />
+     <None Include="Assets\CardsData\7.txt" />
+     <None Include="Assets\CardsData\8.txt" />
+     <None Include="Assets\CardsData\12.txt" />
+     <None Include="Assets\CardsData\31.txt" />
+     <None Include="Assets\CardsData\5.txt" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -244,7 +269,7 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.16f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>U:/Unity/Prototypes/Monopoly Prototype/Library/PackageCache/com.unity.ext.nunit@1.0.5/net35/unity-custom/nunit.framework.dll</HintPath>
+ <HintPath>U:/Unity/Prototypes/Monopoly-Protootype/Library/PackageCache/com.unity.ext.nunit@1.0.5/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.16f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -598,31 +623,31 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.16f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>U:/Unity/Prototypes/Monopoly Prototype/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>U:/Unity/Prototypes/Monopoly-Protootype/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>U:/Unity/Prototypes/Monopoly Prototype/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>U:/Unity/Prototypes/Monopoly-Protootype/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>U:/Unity/Prototypes/Monopoly Prototype/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>U:/Unity/Prototypes/Monopoly-Protootype/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>U:/Unity/Prototypes/Monopoly Prototype/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>U:/Unity/Prototypes/Monopoly-Protootype/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>U:/Unity/Prototypes/Monopoly Prototype/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>U:/Unity/Prototypes/Monopoly-Protootype/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>U:/Unity/Prototypes/Monopoly Prototype/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>U:/Unity/Prototypes/Monopoly-Protootype/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>U:/Unity/Prototypes/Monopoly Prototype/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>U:/Unity/Prototypes/Monopoly-Protootype/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>U:/Unity/Prototypes/Monopoly Prototype/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>U:/Unity/Prototypes/Monopoly-Protootype/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>U:/Unity/Prototypes/Monopoly Prototype/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>U:/Unity/Prototypes/Monopoly-Protootype/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

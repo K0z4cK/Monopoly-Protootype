@@ -1,0 +1,1 @@
+{"id":25,"titleDeed":"Atlantic Avenue","price":260,"rent":22,"with1House":110,"with2House":330,"with3House":800,"with4House":975,"withHotel":1150,"morgageValue":130,"housesCost":150,"color":"#f7ff59"}

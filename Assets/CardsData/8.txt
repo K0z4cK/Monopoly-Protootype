@@ -1,0 +1,1 @@
+{"id":8,"titleDeed":"Connecticut Avenue","price":120,"rent":8,"with1House":40,"with2House":100,"with3House":300,"with4House":450,"withHotel":600,"morgageValue":60,"housesCost":50,"color":"#d4f4ff"}

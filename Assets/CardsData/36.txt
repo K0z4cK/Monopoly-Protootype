@@ -1,0 +1,1 @@
+{"id":36,"titleDeed":"Park Place","price":350,"rent":35,"with1House":175,"with2House":500,"with3House":1100,"with4House":1300,"withHotel":1500,"morgageValue":175,"housesCost":200,"color":"#40a7db"}

@@ -1,0 +1,1 @@
+{"id":20,"titleDeed":"Kentucky Avenue","price":220,"rent":18,"with1House":90,"with2House":250,"with3House":700,"with4House":875,"withHotel":1050,"morgageValue":110,"housesCost":150,"color":"#ff3344"}

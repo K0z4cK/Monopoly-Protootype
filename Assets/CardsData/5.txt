@@ -1,0 +1,1 @@
+{"id":5,"titleDeed":"Oriental Avenue","price":100,"rent":6,"with1House":30,"with2House":90,"with3House":270,"with4House":400,"withHotel":550,"morgageValue":50,"housesCost":50,"color":"#d4f4ff"}

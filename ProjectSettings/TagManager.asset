@@ -7,6 +7,7 @@ TagManager:
   - Dice
   - Board
   - Second Camera
+  - Variable String
   layers:
   - Default
   - TransparentFX

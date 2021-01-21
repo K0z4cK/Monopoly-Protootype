@@ -1,0 +1,1 @@
+{"id":13,"titleDeed":"Virginia Avenue","price":160,"rent":12,"with1House":60,"with2House":180,"with3House":500,"with4House":700,"withHotel":900,"morgageValue":80,"housesCost":100,"color":"#d45395"}

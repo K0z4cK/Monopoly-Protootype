@@ -1,0 +1,1 @@
+{"id":33,"titleDeed":"Pennsylvania Avenue","price":320,"rent":28,"with1House":150,"with2House":450,"with3House":1000,"with4House":1200,"withHotel":1400,"morgageValue":160,"housesCost":200,"color":"#5ac92a"}

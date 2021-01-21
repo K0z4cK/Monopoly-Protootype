@@ -1,0 +1,1 @@
+{"id":30,"titleDeed":"Pacific Avenue","price":300,"rent":26,"with1House":130,"with2House":390,"with3House":900,"with4House":1100,"withHotel":1275,"morgageValue":150,"housesCost":200,"color":"#5ac92a"}

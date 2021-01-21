@@ -1,0 +1,1 @@
+{"id":17,"titleDeed":"Tennessee Avenue","price":180,"rent":14,"with1House":70,"with2House":200,"with3House":550,"with4House":750,"withHotel":950,"morgageValue":90,"housesCost":100,"color":"#f59b53"}

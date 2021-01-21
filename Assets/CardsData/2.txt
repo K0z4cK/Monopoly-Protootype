@@ -1,0 +1,1 @@
+{"id":2,"titleDeed":"Baltic Avenue","price":60,"rent":2,"with1House":20,"with2House":60,"with3House":180,"with4House":320,"withHotel":450,"morgageValue":30,"housesCost":50,"color":"#a87e63"}
