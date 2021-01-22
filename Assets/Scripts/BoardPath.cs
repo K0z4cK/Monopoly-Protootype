@@ -117,9 +117,9 @@ public class BoardPath : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
-                if (GameObject.Find("Canvas").transform.GetChild(1).gameObject.activeSelf == true)
+                if (GameObject.Find("Canvas").transform.GetChild(1).gameObject.activeSelf == true || GameObject.Find("Canvas").transform.GetChild(3).gameObject.activeSelf == true)
                     ChangeCard(playerControls[i].GetRoutePos(), 2);
-                else if (GameObject.Find("Canvas").transform.GetChild(2).gameObject.activeSelf == true)
+                else if (GameObject.Find("Canvas").transform.GetChild(2).gameObject.activeSelf == true || GameObject.Find("Canvas").transform.GetChild(4).gameObject.activeSelf == true)
                     ChangeCard(playerControls[i].GetRoutePos(), 1);
             }
             else if (Input.GetKeyDown(KeyCode.X))
@@ -195,15 +195,15 @@ public class BoardPath : MonoBehaviour
         }
     }
 
-    CardObject Load(int pos)
+    string Load(int pos)
     {
         if (File.Exists(Application.dataPath + "/CardsData/" + pos.ToString() + ".txt"))
         {
             string cardString = File.ReadAllText(Application.dataPath + "/CardsData/" + pos.ToString() + ".txt");
             Debug.Log("Loaded " + cardString);
 
-            CardObject cardObject = JsonUtility.FromJson<CardObject>(cardString);
-            return cardObject;
+            //CardObject cardObject = JsonUtility.FromJson<CardObject>(cardString);
+            return cardString;
         }
         return default;
     }
@@ -224,6 +224,15 @@ public class BoardPath : MonoBehaviour
                 ShowPropertyCardFace(id);
 
             }
+            else if (id == 4 || id == 14 || id == 24 || id == 34)
+            {
+                GameObject.Find("Canvas").transform.GetChild(0).gameObject.SetActive(true);
+                cardActive = true;
+                cardType = 2;
+                GameObject.Find("Canvas").transform.GetChild(3).gameObject.SetActive(false);
+                ShowRailroadCardFace(id);
+
+            }
         }
         else
         {
@@ -234,6 +243,10 @@ public class BoardPath : MonoBehaviour
                 case 1:
                     GameObject.Find("Canvas").transform.GetChild(1).gameObject.SetActive(false);
                     GameObject.Find("Canvas").transform.GetChild(2).gameObject.SetActive(false);
+                    break;
+                case 2:
+                    GameObject.Find("Canvas").transform.GetChild(3).gameObject.SetActive(false);
+                    GameObject.Find("Canvas").transform.GetChild(4).gameObject.SetActive(false);
                     break;
                 default:
                     break;
@@ -246,15 +259,34 @@ public class BoardPath : MonoBehaviour
     {
         GameObject.Find("Canvas").transform.GetChild(1).gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.GetChild(2).gameObject.SetActive(false);
+        GameObject.Find("Canvas").transform.GetChild(3).gameObject.SetActive(false);
+        GameObject.Find("Canvas").transform.GetChild(4).gameObject.SetActive(false);
         switch (childPos) 
         {
             case 1:
-                ShowPropertyCard(id);
-                Debug.Log("Case ShowPropertyCard");
+                if (cardType == 1)
+                {
+                    ShowPropertyCard(id);
+                    Debug.Log("Case ShowPropertyCard");
+                }
+                else if (cardType == 2)
+                {
+                    ShowRailroadCard(id);
+                    Debug.Log("Case ShowRailroadCard");
+                }
                 break;
             case 2:
-                ShowPropertyCardFace(id);
-                Debug.Log("Case ShowPropertyCardFace");
+                if (cardType == 1)
+                {
+                    ShowPropertyCardFace(id);
+                    Debug.Log("Case ShowPropertyCardFace");
+                }
+                else if (cardType == 2)
+                {
+                    ShowRailroadCardFace(id);
+                    Debug.Log("Case ShowRailroadCardFace");
+                }
+                
                 break;
             default:
                 break;
@@ -268,7 +300,7 @@ public class BoardPath : MonoBehaviour
         propertyCard.SetActive(true);
 
 
-        CardObject cardObject = Load(id);
+        CardObject cardObject = JsonUtility.FromJson<CardObject>(Load(id));
         var cardTransform = propertyCard.gameObject.transform;
         GameObject header = cardTransform.transform.GetChild(1).gameObject;
 
@@ -305,7 +337,7 @@ public class BoardPath : MonoBehaviour
         propertyCard.SetActive(true);
 
 
-        CardObject cardObject = Load(id);
+        CardObject cardObject = JsonUtility.FromJson<CardObject>(Load(id));
         var cardTransform = propertyCard.gameObject.transform;
         GameObject color = cardTransform.transform.GetChild(1).gameObject;
         GameObject title = cardTransform.transform.GetChild(2).gameObject;
@@ -319,5 +351,49 @@ public class BoardPath : MonoBehaviour
 
         price.GetComponent<Text>().text = cardObject.price.ToString() + "$";
 
+    }
+
+    void ShowRailroadCard(int id)
+    {
+        GameObject railroadCard = GameObject.Find("Canvas").transform.GetChild(3).gameObject;
+
+        railroadCard.SetActive(true);
+
+
+        RailroadObj cardObject = JsonUtility.FromJson<RailroadObj>(Load(id));
+        var cardTransform = railroadCard.gameObject.transform;
+        GameObject title = cardTransform.transform.GetChild(1).gameObject;
+
+        List<GameObject> variableStrings = new List<GameObject>();
+        foreach (Transform child in cardTransform.GetChild(3).transform)
+        {
+            if (child.tag == "Variable String")
+            {
+                variableStrings.Add(child.gameObject);
+                Debug.Log("Added " + child.name);
+            }
+        }
+        title.GetComponent<Text>().text = cardObject.title;
+
+        variableStrings[0].GetComponent<Text>().text = cardObject.rent.ToString() + "$";
+        variableStrings[1].GetComponent<Text>().text = cardObject.if2rr.ToString() + "$";
+        variableStrings[2].GetComponent<Text>().text = cardObject.if3rr.ToString() + "$";
+        variableStrings[3].GetComponent<Text>().text = cardObject.if4rr.ToString() + "$";
+        variableStrings[4].GetComponent<Text>().text = cardObject.morgageValue.ToString() + "$";
+
+    }
+    void ShowRailroadCardFace (int id)
+    {
+        GameObject railroadCard = GameObject.Find("Canvas").transform.GetChild(4).gameObject;
+
+        railroadCard.SetActive(true);
+
+        RailroadObj cardObject = JsonUtility.FromJson<RailroadObj>(Load(id));
+        var cardTransform = railroadCard.gameObject.transform;
+        GameObject title = cardTransform.transform.GetChild(1).gameObject;
+        GameObject price = cardTransform.GetChild(2).gameObject;
+
+        title.GetComponent<Text>().text = cardObject.title;
+        price.GetComponent<Text>().text = cardObject.price.ToString() + "$";
     }
 }

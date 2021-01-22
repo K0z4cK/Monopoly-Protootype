@@ -1,0 +1,1 @@
+{"id":34,"title":"B. & O. Railroad","price":200,"rent":25,"if2rr":50,"if3rr":100,"if4rr":200,"morgageValue":100}
