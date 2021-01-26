@@ -8,8 +8,9 @@ using UnityEngine.UI;
 public class BoardPath : MonoBehaviour
 {
     int i = 0;
+    List<int> idsOfProp = new List<int> (){ 0, 2, 5, 7, 8, 10, 12, 13, 15, 17, 18, 20, 22, 23, 25, 26, 28, 30, 31, 33, 36, 38 };
+    List<int> idsOfRr = new List<int>() { 4, 14, 24, 34 };
 
-    //public CardScript cardScript;
 
     public GameObject playerPrefab;
     public GameObject cardPrefab;
@@ -19,6 +20,9 @@ public class BoardPath : MonoBehaviour
     public DiceBehaviour[] dices;
     public List<PlayerMoving> playerControls;
     public List<GameObject> players;
+    public List<PlayerScript> playerScripts;
+
+    public List<PropertyStatus> propertiesStat = new List<PropertyStatus>();
     bool allDicesLaned;
     bool canBeReset ;
     bool cardActive = false;
@@ -68,8 +72,9 @@ public class BoardPath : MonoBehaviour
 
             playerObject.transform.position = pos;
             players.Add(playerObject);
+            playerScripts.Add(playerObject.GetComponentInChildren<PlayerScript>());
             playerControls.Add(playerObject.GetComponentInChildren<PlayerMoving>());
-            //playerObject.GetComponentInChildren<CardScript>(); //CardScript
+            playerScripts[n].Player.ID = n+1;
         }
 
         float nextP = 0;
@@ -106,16 +111,41 @@ public class BoardPath : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.M))
+                Debug.Log("Player ["+ playerScripts[i].Player.ID+"]: "+ playerScripts[i].Player.Money+ "$");
+
         if (canBeReset && !playerControls[i].GetIsMoving() && !cardActive && cardEndTurn)
         {
+            PropertyStatus property = propertiesStat.Find(x => x.id == playerControls[i].GetRoutePos());
             cardEndTurn = false;
             CheckCard(playerControls[i].GetRoutePos());
-            
+            if(property.owner != 0)
+                PlayerRent(playerControls[i].GetRoutePos());
+
+
         }
-        if ((Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Space)) && canBeReset && !playerControls[i].GetIsMoving())
+        if ((Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Space)) && canBeReset && !playerControls[i].GetIsMoving())
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                PropertyStatus property = propertiesStat.Find(x => x.id == playerControls[i].GetRoutePos());
+
+                if (property.isBuyed == false)
+                    if (idsOfProp.Contains(playerControls[i].GetRoutePos()))
+                    {
+                        CardObject cardObject = JsonUtility.FromJson<CardObject>(Load(playerControls[i].GetRoutePos()));
+                        property = playerScripts[i].BuyProperty(cardObject, property);
+                    }
+                    else if (idsOfRr.Contains(playerControls[i].GetRoutePos()))
+                    {
+                        RailroadObj rrObject = JsonUtility.FromJson<RailroadObj>(Load(playerControls[i].GetRoutePos()));
+                        property = playerScripts[i].BuyRailroad(rrObject, property);
+                    }
+
+                Debug.Log(property.id + " owner: "+ property.owner);
+
+            }
+            else if (Input.GetKeyDown(KeyCode.C))
             {
                 if (GameObject.Find("Canvas").transform.GetChild(1).gameObject.activeSelf == true || GameObject.Find("Canvas").transform.GetChild(3).gameObject.activeSelf == true)
                     ChangeCard(playerControls[i].GetRoutePos(), 2);
@@ -214,22 +244,26 @@ public class BoardPath : MonoBehaviour
         if (!cardActive)
         {
            
-            if (id == 0 || id == 2 || id == 5 || id == 7 || id == 8 || id == 10 || id == 12 || id == 13 || id == 15 || id == 17 || id == 18 || id == 20 || id == 22 || id == 23 || id == 25 || id == 26
-                || id == 28 || id == 30 || id == 31 || id == 33 || id == 36 || id == 38)
+            if (idsOfProp.Contains(id))
             {
+                
                 GameObject.Find("Canvas").transform.GetChild(0).gameObject.SetActive(true);
                 cardActive = true;
                 cardType = 1;
                 GameObject.Find("Canvas").transform.GetChild(1).gameObject.SetActive(false);
+                if (propertiesStat.Find(x => x.id == id) == default)
+                    propertiesStat.Add(new PropertyStatus() { id = id, isBuyed = false, isMortgaged = false, owner = 0, housesCount =  0}); 
                 ShowPropertyCardFace(id);
 
             }
-            else if (id == 4 || id == 14 || id == 24 || id == 34)
+            else if (idsOfRr.Contains(id))
             {
                 GameObject.Find("Canvas").transform.GetChild(0).gameObject.SetActive(true);
                 cardActive = true;
                 cardType = 2;
                 GameObject.Find("Canvas").transform.GetChild(3).gameObject.SetActive(false);
+                if (propertiesStat.Find(x => x.id == id) == default)
+                    propertiesStat.Add(new PropertyStatus() { id = id, isBuyed = false, isMortgaged = false, owner = 0, housesCount = 0});
                 ShowRailroadCardFace(id);
 
             }
@@ -396,4 +430,83 @@ public class BoardPath : MonoBehaviour
         title.GetComponent<Text>().text = cardObject.title;
         price.GetComponent<Text>().text = cardObject.price.ToString() + "$";
     }
+    public void PlayerRent(int id)
+    {
+        PropertyStatus property = propertiesStat.Find(x => x.id == playerControls[i].GetRoutePos());
+        if (idsOfProp.Contains(id))
+        {
+            CardObject cardObject = JsonUtility.FromJson<CardObject>(Load(id));
+            switch (property.housesCount) 
+            {
+                case 0:
+                    {
+                        playerScripts[i].Player.Money -= cardObject.rent;
+                        playerScripts[property.owner - 1].Player.Money += cardObject.rent;
+                        Debug.Log("Player " + playerScripts[i].Player.ID + " payed player " + property.owner + ": " + cardObject.rent + " for renting " + cardObject.titleDeed);
+
+                        break;
+                    }
+                case 1:
+                    {
+                        playerScripts[i].Player.Money -= cardObject.with1House;
+                        playerScripts[property.owner - 1].Player.Money += cardObject.with1House;
+                        Debug.Log("Player " + playerScripts[i].Player.ID + " payed player " + property.owner + ": " + cardObject.with1House + " for renting " + cardObject.titleDeed);
+
+                        break;
+                    }
+                case 2:
+                    {
+                        playerScripts[i].Player.Money -= cardObject.with2House;
+                        playerScripts[property.owner - 1].Player.Money += cardObject.with2House;
+                        Debug.Log("Player " + playerScripts[i].Player.ID + " payed player " + property.owner + ": " + cardObject.with2House + " for renting " + cardObject.titleDeed);
+
+                        break;
+                    }
+                case 3:
+                    {
+                        playerScripts[i].Player.Money -= cardObject.with3House;
+                        playerScripts[property.owner - 1].Player.Money += cardObject.with3House;
+                        Debug.Log("Player " + playerScripts[i].Player.ID + " payed player " + property.owner + ": " + cardObject.with3House + " for renting " + cardObject.titleDeed);
+
+                        break;
+                    }
+                case 4:
+                    {
+                        playerScripts[i].Player.Money -= cardObject.with4House;
+                        playerScripts[property.owner - 1].Player.Money += cardObject.with4House;
+                        Debug.Log("Player " + playerScripts[i].Player.ID + " payed player " + property.owner + ": " + cardObject.with4House + " for renting " + cardObject.titleDeed);
+
+                        break;
+                    }
+                case 5:
+                    {
+                        playerScripts[i].Player.Money -= cardObject.withHotel;
+                        playerScripts[property.owner - 1].Player.Money += cardObject.withHotel;
+                        Debug.Log("Player " + playerScripts[i].Player.ID + " payed player " + property.owner + ": " + cardObject.withHotel + " for renting " + cardObject.titleDeed);
+
+                        break;
+                    }
+                default: break;
+            }
+
+
+        }
+        else if (idsOfRr.Contains(id))
+        {
+            RailroadObj rrObject = JsonUtility.FromJson<RailroadObj>(Load(id));
+            int count = playerScripts[property.owner - 1].Player.railroads.Count;
+            int rent = rrObject.rent;
+
+            for (int i = 1; i <= count; i++)
+                rent *= 2;
+            playerScripts[i].Player.Money -= rent;
+            playerScripts[property.owner - 1].Player.Money += rent;
+            Debug.Log("Player " + playerScripts[i].Player.ID + " payed player " + property.owner + ": " + rent + " for renting " + rrObject.title);
+
+        }
+
+    }
+
 }
+
+

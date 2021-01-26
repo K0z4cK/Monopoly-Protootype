@@ -57,11 +57,13 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BoardPath.cs" />
      <Compile Include="Assets\Scripts\CardObject.cs" />
-     <Compile Include="Assets\Scripts\CardScript.cs" />
      <Compile Include="Assets\Scripts\DiceBehaviour.cs" />
      <Compile Include="Assets\Scripts\DiceSide.cs" />
      <Compile Include="Assets\Scripts\MarketScript.cs" />
      <Compile Include="Assets\Scripts\PlayerMoving.cs" />
+     <Compile Include="Assets\Scripts\PlayerObj.cs" />
+     <Compile Include="Assets\Scripts\PlayerScript.cs" />
+     <Compile Include="Assets\Scripts\PropertyStatus.cs" />
      <Compile Include="Assets\Scripts\RailroadObj.cs" />
      <Compile Include="Assets\Scripts\Route.cs" />
      <None Include="Assets\CardsData\36.txt" />

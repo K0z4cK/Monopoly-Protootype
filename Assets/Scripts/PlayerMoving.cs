@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMoving : MonoBehaviour
 {
-    //public CardScript cardPrefab;
 
     public Route currentRoute;
 
@@ -42,7 +41,6 @@ public class PlayerMoving : MonoBehaviour
             //Debug.Log("current pos: " + routePos);
         }
         isMoving = false;
-        //cardPrefab.Load(routePos);
     }
 
     bool MoveToNextNode(Vector3 goal)
@@ -54,9 +52,7 @@ public class PlayerMoving : MonoBehaviour
     public int GetRoutePos() { return routePos; }
     void Start()
     {
-        
-        //cardPrefab = new CardScript();
-        //cardPrefab.
+
         routePos--;
     }
 
